@@ -56,6 +56,9 @@ jobs:
          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: ./gradlew testReleaseUnitTest
+        
+      - name: List APK files
+        run: find app/build/outputs/apk -type f
 
       - name: Upload APK
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
