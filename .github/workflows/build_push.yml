@@ -33,18 +33,18 @@ jobs:
         uses: gradle/actions/setup-gradle@94baf225fe0a508e581a564467443d0e2379123b
         
       - name: Decode keystore
-        run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > app/shadowyomi.jks
+        run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > shadowyomi.jks
 
       - name: Check code format
         env:
-          KEYSTORE_FILE: app/shadowyomi.jks
+          KEYSTORE_FILE: shadowyomi.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: ./gradlew spotlessCheck
 
       - name: Build app
         env:
-          KEYSTORE_FILE: app/shadowyomi.jks
+          KEYSTORE_FILE: shadowyomi.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: ./gradlew assembleRelease -Penable-updater
