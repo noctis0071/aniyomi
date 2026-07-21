@@ -51,6 +51,10 @@ jobs:
         run: ./gradlew assembleRelease -Penable-updater
 
       - name: Run unit tests
+        env:
+         KEYSTORE_FILE: shadowyomi.jks
+         KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+         KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: ./gradlew testReleaseUnitTest
 
       - name: Upload APK
