@@ -34,8 +34,15 @@ jobs:
 
       - name: Check code format
         run: ./gradlew spotlessCheck
+              
+      - name: Decode keystore
+        run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > shadowyomi.jks
 
       - name: Build app
+        env:
+          KEYSTORE_FILE: shadowyomi.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: ./gradlew assembleRelease -Penable-updater
 
       - name: Run unit tests
