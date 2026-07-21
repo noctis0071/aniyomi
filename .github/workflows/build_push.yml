@@ -33,7 +33,8 @@ jobs:
         uses: gradle/actions/setup-gradle@94baf225fe0a508e581a564467443d0e2379123b
         
       - name: Decode keystore
-        run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > shadowyomi.jks
+        run: |
+         echo "${{ secrets.KEYSTORE }}" | base64 --decode > app/shadowyomi.jks
 
       - name: Check code format
         env:
