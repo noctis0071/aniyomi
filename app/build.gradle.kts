@@ -41,7 +41,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    signingConfigs {
+        create("release") {
+            storeFile = file(System.getenv("KEYSTORE_FILE"))
+            storePassword = System.getenv("KEYSTORE_PASSWORD")
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEYSTORE_PASSWORD")
+        }
+    }
     buildTypes {
         val debug by getting {
             applicationIdSuffix = ".dev"
@@ -49,6 +56,7 @@ android {
             isPseudoLocalesEnabled = true
         }
         val release by getting {
+signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = Config.enableCodeShrink
             isShrinkResources = Config.enableCodeShrink
 
